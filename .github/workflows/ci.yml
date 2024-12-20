@@ -19,11 +19,20 @@ jobs:
       - name: Install golangci-lint
         run: go install github.com/golangci/golangci-lint/cmd/golangci-lint@v1.53.3
       - name: Lint backend
-        run: golangci-lint run ./backend --timeout 5m
+        run: golangci-lint run ./backend --timeout 5m -v
       - name: Test backend
         run: go test ./backend/...
       - name: Debug file structure
-        run: ls -R ./backend
+      - run: |
+          echo "Listing backend directory:"
+          ls -R ./backend
+          echo "Contents of go.mod:"
+          cat ./backend/go.mod || echo "No go.mod found"
+          echo "Running go mod tidy:"
+          cd ./backend && go mod tidy || echo "go mod tidy failed"
+      - name: Check Go version
+      - run: go version
+
 
 
       # Frontend lint & test

@@ -1,7 +1,18 @@
 package internal
 
-import "fmt"
+import (
+	"encoding/json"
+	"net/http"
+)
 
-func ExampleFunction() {
-    fmt.Println("Example function in internal package")
+// PingResponse represents the response structure for the /ping endpoint.
+type PingResponse struct {
+	Message string `json:"message"`
+}
+
+// PingHandler handles requests to the /ping endpoint.
+func PingHandler(w http.ResponseWriter, r *http.Request) {
+	response := PingResponse{Message: "pong"}
+	w.Header().Set("Content-Type", "application/json")
+	_ = json.NewEncoder(w).Encode(response)
 }

@@ -1,9 +1,19 @@
 package internal
 
-import "testing"
+import (
+	"net/http"
+	"net/http/httptest"
+	"testing"
+)
 
-func TestExample(t *testing.T) {
-  if 1+1 != 2 {
-    t.Fatalf("math broken")
-  }
+func TestPingHandler(t *testing.T) {
+	req := httptest.NewRequest("GET", "/ping", nil)
+	w := httptest.NewRecorder()
+
+	PingHandler(w, req)
+
+	resp := w.Result()
+	if resp.StatusCode != http.StatusOK {
+		t.Errorf("Expected status code %d, got %d", http.StatusOK, resp.StatusCode)
+	}
 }

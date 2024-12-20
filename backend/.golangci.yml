@@ -1,5 +1,7 @@
 linters:
   enable:
     - revive
+    - staticcheck
+    - errcheck
 run:
   timeout: 5m
