@@ -1,6 +1,5 @@
 linters:
   enable:
-    - govet
-    - golint
+    - revive
 run:
-  timeout: 2m
+  timeout: 5m
