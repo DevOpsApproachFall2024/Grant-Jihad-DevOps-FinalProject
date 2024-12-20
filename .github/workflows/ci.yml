@@ -22,6 +22,9 @@ jobs:
         run: golangci-lint run ./backend --timeout 5m
       - name: Test backend
         run: go test ./backend/...
+      - name: Debug file structure
+        run: ls -R ./backend
+
 
       # Frontend lint & test
       - name: Setup Node
