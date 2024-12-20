@@ -1,0 +1,6 @@
+linters:
+  enable:
+    - govet
+    - golint
+run:
+  timeout: 2m
