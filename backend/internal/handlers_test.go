@@ -7,18 +7,17 @@ import (
 	"testing"
 )
 
-// Existing test for /ping endpoint
 func TestPingHandler(t *testing.T) {
-	req := httptest.NewRequest("GET", "/ping", nil)
-	w := httptest.NewRecorder()
+    req := httptest.NewRequest("GET", "/ping", nil)
+    w := httptest.NewRecorder()
 
-	PingHandler(w, req)
+    PingHandler(w, req)
 
-	resp := w.Result()
-	if resp.StatusCode != http.StatusOK {
-		t.Errorf("Expected status code %d, got %d", http.StatusOK, resp.StatusCode)
-	}
+    if w.Result().StatusCode == http.StatusOK {
+        t.Errorf("Intentional error: Test expects non-200 status code")
+    }
 }
+
 
 // New test for /projects endpoint
 func TestProjectsHandler(t *testing.T) {

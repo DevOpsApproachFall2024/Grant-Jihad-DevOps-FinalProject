@@ -10,12 +10,13 @@ type PingResponse struct {
 	Message string `json:"message"`
 }
 
-// PingHandler handles requests to the /ping endpoint.
 func PingHandler(w http.ResponseWriter, r *http.Request) {
-	response := PingResponse{Message: "pong"}
-	w.Header().Set("Content-Type", "application/json")
-	_ = json.NewEncoder(w).Encode(response)
+    // Intentional bug: sending a malformed JSON response
+    response := "This is not JSON" // This should be a struct encoded as JSON
+    w.Header().Set("Content-Type", "application/json")
+    _, _ = w.Write([]byte(response))
 }
+
 
 // Project represents a project in the /projects endpoint response.
 type Project struct {

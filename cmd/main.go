@@ -19,3 +19,5 @@ func main() {
 		fmt.Printf("Error starting server: %v\n", err)
 	}
 }
+
+var unusedVariable = "I am not used anywhere"
