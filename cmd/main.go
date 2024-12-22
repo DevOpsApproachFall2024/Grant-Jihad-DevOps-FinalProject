@@ -20,4 +20,3 @@ func main() {
 	}
 }
 
-var unusedVariable = "I am not used anywhere"
