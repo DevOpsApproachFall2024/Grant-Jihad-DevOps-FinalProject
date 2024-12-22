@@ -1,3 +1,3 @@
-module github.com/t3ddyp1ck3r/Grant-Jihad-DevOps-FinalProject
+module github.com/t3ddyp1ck3r/Grant-Jihad-DevOps-FinalProject/backend
 
-go 1.23.4
+go 1.23
