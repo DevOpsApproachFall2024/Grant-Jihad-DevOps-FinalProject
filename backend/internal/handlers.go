@@ -2,6 +2,7 @@ package internal
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 )
 
@@ -16,6 +17,7 @@ func PingHandler(w http.ResponseWriter, _ *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	if err := json.NewEncoder(w).Encode(response); err != nil {
 		http.Error(w, "Failed to encode response", http.StatusInternalServerError)
+		fmt.Printf("Error encoding response: %v\n", err)
 	}
 }
 
@@ -24,5 +26,6 @@ func ProjectsHandler(w http.ResponseWriter, _ *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	if _, err := w.Write([]byte("Projects endpoint")); err != nil {
 		http.Error(w, "Failed to write response", http.StatusInternalServerError)
+		fmt.Printf("Error writing response: %v\n", err)
 	}
 }

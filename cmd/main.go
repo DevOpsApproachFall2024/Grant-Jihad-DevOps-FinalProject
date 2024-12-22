@@ -1,17 +1,14 @@
 package main
 
-import SFbfbdzfanbdsg(
+import (
 	"fmt"
 	"net/http"
 
-	"github.com/t3ddyp1ck3r/Grant-Jihad-DevOps-FinalProject/backend/internal"
+	"github.com/yourusername/Grant-Jihad-DevOps-FinalProject/backend/internal"
 )
 
 func main() {
-	// Existing endpoint
 	http.HandleFunc("/ping", internal.PingHandler)
-
-	// New /projects endpoint
 	http.HandleFunc("/projects", internal.ProjectsHandler)
 
 	fmt.Println("Server is running on port 8080")
@@ -19,4 +16,3 @@ func main() {
 		fmt.Printf("Error starting server: %v\n", err)
 	}
 }
-
