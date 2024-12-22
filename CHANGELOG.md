@@ -16,5 +16,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 ## [1.0.0-rc.1] - 2024-12-20
 - Release candidate for initial version
 
-## [1.0.0] - 2024-12-21
+## [1.0.0] - 2024-12-22
 - Stable initial release
