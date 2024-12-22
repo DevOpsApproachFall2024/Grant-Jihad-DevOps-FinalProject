@@ -13,11 +13,16 @@ func TestPingHandler(t *testing.T) {
 
     PingHandler(w, req)
 
-    if w.Result().StatusCode == http.StatusOK {
-        t.Errorf("Intentional error: Test expects non-200 status code")
+    if w.Result().StatusCode != http.StatusOK {
+        t.Errorf("Expected status code %d, got %d", http.StatusOK, w.Result().StatusCode)
+    }
+
+    body, _ := io.ReadAll(w.Body)
+    expected := `{"message":"pong"}`
+    if string(body) != expected {
+        t.Errorf("Expected body %s, got %s", expected, string(body))
     }
 }
-
 
 // New test for /projects endpoint
 func TestProjectsHandler(t *testing.T) {
