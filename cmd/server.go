@@ -1,15 +1,23 @@
 package main
 
-import (
-  "fmt"
-  "net/http"
+iimport (
+	"fmt"
+	"net/http"
+
+	"github.com/t3ddyp1ck3r/Grant-Jihad-DevOps-FinalProject/backend/internal"
 )
 
 func main() {
-  http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-    fmt.Fprintln(w, "Hello from Go Backend!")
-  })
-  http.ListenAndServe(":8080", nil)
+	// Existing endpoint
+	http.HandleFunc("/ping", internal.PingHandler)
+
+	// New /projects endpoint
+	http.HandleFunc("/projects", internal.ProjectsHandler)
+
+	fmt.Println("Server is running on port 8080")
+	if err := http.ListenAndServe(":8080", nil); err != nil {
+		fmt.Printf("Error starting server: %v\n", err)
+	}
 
   http.HandleFunc("/tony", func(w http.ResponseWriter, r *http.Request) {
     w.Header().Set("Content-Type", "text/html; charset=utf-8")
@@ -35,4 +43,7 @@ func main() {
   
     fmt.Fprint(w, html)
   })  
+
+  http.ListenAndServe(":8080", nil)
+
 }
