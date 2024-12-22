@@ -9,23 +9,46 @@ jobs:
   build-test-lint:
     runs-on: ubuntu-latest
     steps:
-      # Checkout code
       - uses: actions/checkout@v2
 
-      # Set up Go environment
+      # Backend lint & test
       - name: Setup Go
         uses: actions/setup-go@v3
         with:
           go-version: '1.23.4'
-
-      # Install golangci-lint
       - name: Install golangci-lint
         run: go install github.com/golangci/golangci-lint/cmd/golangci-lint@v1.53.3
-
-      # Run linter
       - name: Lint backend
-        run: golangci-lint run ./ --timeout 5m
-
-      # Run tests
+        run: golangci-lint run ./backend --timeout 5m -v
       - name: Test backend
-        run: go test ./...
+        run: go test ./backend/...
+      - name: Debug file structure
+      - run: |
+          echo "Listing backend directory:"
+          ls -R ./backend
+          echo "Contents of go.mod:"
+          cat ./backend/go.mod || echo "No go.mod found"
+          echo "Running go mod tidy:"
+          cd ./backend && go mod tidy || echo "go mod tidy failed"
+      - name: Check Go version
+      - run: go version
+
+
+
+      # Frontend lint & test
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      - name: Install frontend dependencies
+        run: |
+          cd frontend
+          npm install
+      - name: Build frontend
+        run: |
+          cd frontend
+          npm run build
+      - name: Test frontend
+        run: |
+          cd frontend
+          npm test -- --watchAll=false
