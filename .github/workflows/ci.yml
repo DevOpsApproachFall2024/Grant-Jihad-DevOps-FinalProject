@@ -59,3 +59,11 @@ jobs:
         run: |
           cd frontend
           npm test -- --watchAll=false
+
+      - name: Debug CI Environment
+        run: |
+        echo "Listing backend directory:"
+        ls -R ./backend
+        echo "Contents of go.mod:"
+        cat ./backend/go.mod || echo "No go.mod found"
+
