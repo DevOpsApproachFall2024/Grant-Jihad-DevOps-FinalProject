@@ -25,11 +25,20 @@ type Project struct {
 
 // ProjectsHandler handles requests to the /projects endpoint.
 // Introduced Bug: The project ID is intentionally set to an invalid value (-1).
-func ProjectsHandler(w http.ResponseWriter, r *http.Request) {
-	projects := []Project{
-		{ID: -1, Name: "Bugged Project"}, // Intentional Bug: Negative ID
-	}
+// func ProjectsHandler(w http.ResponseWriter, r *http.Request) {
+// 	projects := []Project{
+// 		{ID: -1, Name: "Bugged Project"}, // Intentional Bug: Negative ID
+// 	}
 
-	// Forgot to set Content-Type header (Bug!)
-	_ = json.NewEncoder(w).Encode(projects)
+// 	// Forgot to set Content-Type header (Bug!)
+// 	_ = json.NewEncoder(w).Encode(projects)
+// }
+
+func ProjectsHandler(w http.ResponseWriter, r *http.Request) {
+    projects := []Project{
+        {ID: 1, Name: "Example Project"}, // Correct Project ID and Name
+    }
+
+    w.Header().Set("Content-Type", "application/json") // Correct Content-Type
+    _ = json.NewEncoder(w).Encode(projects)
 }
