@@ -24,11 +24,11 @@ type Project struct {
 }
 
 // ProjectsHandler handles requests to the /projects endpoint.
+// Introduced Bug: The project ID is intentionally set to an invalid value (-1).
 func ProjectsHandler(w http.ResponseWriter, r *http.Request) {
 	projects := []Project{
-		{ID: 1, Name: "Example Project"},
+		{ID: -1, Name: "Bugged Project"}, // Intentional Bug: Negative ID
 	}
 
-	w.Header().Set("Content-Type", "application/json")
 	_ = json.NewEncoder(w).Encode(projects)
 }
