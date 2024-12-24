@@ -1,7 +1,7 @@
-FROM golang:1.20-alpine as builder
+FROM golang:1.23-alpine as builder
 WORKDIR /app
 COPY . .
-RUN go mod download && go build -o server ./cmd
+RUN go mod tidy && go build -o server ./cmd
 
 FROM alpine:3.16
 WORKDIR /app
