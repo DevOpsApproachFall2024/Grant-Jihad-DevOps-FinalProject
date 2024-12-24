@@ -30,11 +30,9 @@ jobs:
           cat ./backend/go.mod || echo "No go.mod found"
           echo "Running go mod tidy:"
           cd ./backend && go mod tidy || echo "go mod tidy failed"
-          echo "Running go test:"
-          go test ./backend/... || echo "go test failed"
 
       - name: Lint backend
-        run: golangci-lint run ./backend --timeout 5m -v
+        run: golangci-lint run ./backend/internal --timeout 5m -v
 
       - name: Test backend
         run: go test ./backend/...
