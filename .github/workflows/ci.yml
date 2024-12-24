@@ -1,6 +1,15 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
 jobs:
   build-test-lint:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
@@ -19,6 +28,13 @@ jobs:
           ls -R ./backend
           echo "Contents of go.mod:"
           cat ./backend/go.mod || echo "No go.mod found"
+          echo "Running go mod tidy:"
+          cd ./backend && go mod tidy || echo "go mod tidy failed"
+          echo "Running go test:"
+          go test ./backend/... || echo "go test failed"
 
       - name: Lint backend
         run: golangci-lint run ./backend --timeout 5m -v
+
+      - name: Test backend
+        run: go test ./backend/...
